@@ -9,6 +9,15 @@ DATA_PATH = "../../Datasets/GTZAN/images_original/"
 OUT_PATH = "../../Datasets/GTZAN/images_cropped/"
 
 
+# SLICED_PATH = "../../Datasets/GTZAN/images_sliced/"
+
+def save_arr_as_img(arr, image_path):
+    arr = arr * 255
+    arr = arr.astype(np.uint8)
+    img = Image.fromarray(arr)
+    img.save(image_path)
+
+
 def cropImage(image_path):
     image = img_as_float(io.imread(image_path))
 
@@ -24,14 +33,15 @@ def cropImage(image_path):
     bottom_right = np.max(coords, axis=1)
 
     out = image[top_left[0]:bottom_right[0], top_left[1]:bottom_right[1]]
-    out = out * 255
-    out = out.astype(np.uint8)
+    save_arr_as_img(out, image_path)
+    # out = out * 255
+    # out = out.astype(np.uint8)
 
     # plt.imshow(out)
     # plt.show()
     # imageRGB = cv.cvtColor(image, cv.COLOR_BGR2RGB)
-    img = Image.fromarray(out)
-    img.save(image_path)
+    # img = Image.fromarray(out)
+    # img.save(image_path)
     # img.show()
 
 
@@ -43,7 +53,6 @@ def convert_to_jpg(file_path):
 
 
 def traverse_images(data_path, image_operation):
-
     list_subfolders_with_paths = [(f.name, f.path) for f in os.scandir(data_path) if f.is_dir()]
     for sub_dir in list_subfolders_with_paths:
         dir_name, dir_path = sub_dir
@@ -53,9 +62,24 @@ def traverse_images(data_path, image_operation):
             if os.path.isfile(file_path):
                 print(f)
                 image_operation(file_path)
+                # break
+        # break
+
+
+def sliceImage(image_path):
+    image = img_as_float(io.imread(image_path))
+
+    step_size = 16
+    for i in range(0, image.shape[1], step_size):
+        s = image[:, i: i + step_size, :]
+
+        save_arr_as_img(s, image_path
+                        .replace(".jpg", "-slice" + str(int(i / step_size)) + ".jpg")
+                        .replace("cropped", "sliced")
+                        )
 
 
 if __name__ == '__main__':
-    traverse_images(DATA_PATH, convert_to_jpg)
-    traverse_images(OUT_PATH, cropImage)
-    # traverse_images(image_op)
+    # traverse_images(DATA_PATH, convert_to_jpg)
+    # traverse_images(OUT_PATH, cropImage)
+    traverse_images(OUT_PATH, sliceImage)

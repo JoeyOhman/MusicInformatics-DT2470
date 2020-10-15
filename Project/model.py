@@ -17,8 +17,8 @@ class Model:
         else:
             self.history = self.model.fit(x, y, epochs=epochs, validation_data=(x_test, y_test))
 
-    def trainTFDataset(self, train_ds, val_ds, epochs, batch_size):
-        self.history = self.model.fit(train_ds, validation_data=val_ds, epochs=epochs)  # , batch_size=batch_size)
+    def trainTFDataset(self, train_ds, val_ds, epochs):
+        self.history = self.model.fit(train_ds, validation_data=val_ds, epochs=epochs)
 
     def evaluate(self, x, y):
         self.model.evaluate(x, y, verbose=2)
