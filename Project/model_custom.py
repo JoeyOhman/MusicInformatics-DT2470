@@ -82,8 +82,9 @@ class MyModel(Model):
         # Note that it will include the loss (tracked in self.metrics).
         return {m.name: m.result() for m in self.metrics}
 
-    def trainFit(self, train_ds, val_ds, epochs):
-        self.history = self.fit(train_ds, validation_data=val_ds, epochs=epochs)
+    # def trainFit(self, train_ds, val_ds, epochs):
+    def trainFit(self, x_train, y_train, x_val, y_val, epochs, batch_size):
+        self.history = self.fit(x_train, y_train, validation_data=(x_val, y_val), epochs=epochs, batch_size=batch_size)
 
     def plotLearningCurve(self):
         plt.plot(self.history.history['accuracy'], label='accuracy')
