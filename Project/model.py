@@ -9,9 +9,20 @@ from Project.networks import convNet, feedForwardNet
 
 class Model:
 
-    def __init__(self, input_shape):
+    def __init__(self, input_shape, model_path=None):
         self.input_shape = input_shape
-        self.model, self.prob_model = init_model(input_shape)
+        if model_path is None:
+            self.model, self.prob_model = init_model(input_shape)
+        else:
+            self.model = tf.keras.models.load_model(model_path)
+            self.prob_model = tf.keras.Sequential([
+                self.model,
+                tf.keras.layers.Softmax()
+            ])
+            self.prob_model.compile(optimizer='adam',
+                                    loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+                                    metrics=['accuracy'])
+
         self.history = None
 
     def train(self, x, y, x_test, y_test, epochs, batch_size=32):

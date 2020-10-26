@@ -69,45 +69,8 @@ def generate_mel_spect_aug(path_to_sound):
 
 
 def generate_mel_spects():
-    '''
-    t_hiphop = threading.Thread(target=traverse_images, args=(SOUND_PATH, generate_mel_spect, "hiphop"))
-    t_jazz = threading.Thread(target=traverse_images, args=(SOUND_PATH, generate_mel_spect, "jazz"))
-    t_metal = threading.Thread(target=traverse_images, args=(SOUND_PATH, generate_mel_spect, "metal"))
-    t_pop = threading.Thread(target=traverse_images, args=(SOUND_PATH, generate_mel_spect, "pop"))
-    t_reggae = threading.Thread(target=traverse_images, args=(SOUND_PATH, generate_mel_spect, "reggae"))
-    t_rock = threading.Thread(target=traverse_images, args=(SOUND_PATH, generate_mel_spect, "rock"))
-
-    t_hiphop.start()
-    t_jazz.start()
-    t_metal.start()
-    t_pop.start()
-    t_reggae.start()
-    t_rock.start()
-
-    t_hiphop.join()
-    t_jazz.join()
-    t_metal.join()
-    t_pop.join()
-    t_reggae.join()
-    t_rock.join()
-
-    print("Joined all threads!")
-    '''
 
     traverse_images(SOUND_PATH, generate_mel_spect_aug)
-
-
-def do_stuff():
-    # data, sample_rate = load_sound()
-    # win_len = 10
-    # hop_len = 5
-    # freqs, times, db = stft_spectrogram(data, win_len, hop_len, sample_rate)
-    # mel_spectrogram(data, win_len, hop_len, sample_rate)
-    # plotSpectrogram(times, freqs, db, "speccc")
-
-    # TODO: SPECIFY SIZE TO GET RIGHT IN PIXELS? THEN GENERATE ALL AND PROFIT <3
-    # Then try to see if classification is better, then try augmentation with tone shifting
-    pass
 
 
 if __name__ == '__main__':

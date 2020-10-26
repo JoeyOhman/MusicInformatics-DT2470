@@ -34,15 +34,6 @@ def cropImage(image_path):
 
     out = image[top_left[0]:bottom_right[0], top_left[1]:bottom_right[1]]
     save_arr_as_img(out, image_path)
-    # out = out * 255
-    # out = out.astype(np.uint8)
-
-    # plt.imshow(out)
-    # plt.show()
-    # imageRGB = cv.cvtColor(image, cv.COLOR_BGR2RGB)
-    # img = Image.fromarray(out)
-    # img.save(image_path)
-    # img.show()
 
 
 def convert_to_jpg(file_path):

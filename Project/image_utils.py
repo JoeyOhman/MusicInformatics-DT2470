@@ -9,7 +9,6 @@ def slice_image_no_label(img, img_height, slice_width):
 def slice_image(sample, img_height, slice_width):
     x, y, x_aug_up, x_aug_down = sample
     img_w = x.shape[1]
-    # assert img_w % slice_width == 0  # Assume images are padded to even number of slices
 
     slices = []
     for s_idx in range(0, img_w, slice_width):
